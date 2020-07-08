@@ -4,7 +4,9 @@ const Course = require('./controllers/CourseController');
 const routes = express.Router();
 
 
-routes.get('/', Course.store)
+routes.get('/courses', Course.index);
+routes.post('/courses', Course.store);
+//routes.post('/courses', Course.store)
 
 
 

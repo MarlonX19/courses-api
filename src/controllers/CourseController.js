@@ -3,23 +3,41 @@ const Course = require('../models/courses');
 
 module.exports = {
   async store(req, res) {
-    //const { title, subtitle } = req.body;
+    const { title, subtitle, startedAt, description } = req.body;
 
-    // const courseExists = await Course.findOne({ title: title });
+    const courseExists = await Course.findOne({ title: title });
 
-    // if (courseExists) {
-    //   return res.json(courseExists);
-    // }
+    if (courseExists) {
+      return res.json(courseExists);
+    }
 
+    try {
+      const crs = await Course.creates({
+        title,
+        subtitle,
+        startedAt,
+        description
+      })
+      return res.json(crs);
+    }
+    catch (error) {
+      return res.status(500).json({ message: "Erro interno, tente mais tarde!" });
+    }
 
-    const crs = await Course.create({
-      title: 'Node',
-      subtitle: 'desenvolvimento backend, NodeJS',
-      startedAt: '2020-07-08T19:33:49',
-      description: 'Curso efetuado durante o mês de julho de 2020'
-    })
-    return res.json(crs);
   },
+
+
+  async index(req, res) {
+    try {
+      const courses = await Course.find({});
+
+      return res.json(courses);
+    }
+    catch (error) {
+      return res.status(500).json({ message: "Erro interno, tente mais tarde!" });
+    }
+
+  }
 
 
 }
