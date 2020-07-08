@@ -1,7 +1,35 @@
-const axios = require('axios');
 const Course = require('../models/courses');
 
 module.exports = {
+
+  async index(req, res) {
+    try {
+      const courses = await Course.find({});
+
+      return res.json(courses);
+    }
+    catch (error) {
+      return res.status(500).json({ message: "Erro interno, tente mais tarde!" });
+    }
+
+  },
+
+
+  async listCourse(req, res) {
+    const { id } = req.params;
+
+    try {
+      const courses = await Course.find({ _id: id });
+
+      return res.json(courses);
+    }
+    catch (error) {
+      return res.status(500).json({ message: "Erro interno, tente mais tarde!" });
+    }
+
+  },
+
+
   async store(req, res) {
     const { title, subtitle, startedAt, description } = req.body;
 
@@ -25,19 +53,6 @@ module.exports = {
     }
 
   },
-
-
-  async index(req, res) {
-    try {
-      const courses = await Course.find({});
-
-      return res.json(courses);
-    }
-    catch (error) {
-      return res.status(500).json({ message: "Erro interno, tente mais tarde!" });
-    }
-
-  }
 
 
 }

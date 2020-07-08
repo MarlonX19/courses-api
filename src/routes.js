@@ -5,8 +5,11 @@ const routes = express.Router();
 
 
 routes.get('/courses', Course.index);
+routes.get('/courses/:id', Course.listCourse);
+
+
 routes.post('/courses', Course.store);
-//routes.post('/courses', Course.store)
+
 
 
 
