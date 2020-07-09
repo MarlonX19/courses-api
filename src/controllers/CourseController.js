@@ -2,20 +2,20 @@ const Course = require('../models/courses');
 
 module.exports = {
 
-  async index(req, res) {
+  async index(req, res, next) {
     try {
       const courses = await Course.find({});
 
       return res.json(courses);
     }
     catch (error) {
-      return res.status(500).json({ message: "Erro interno, tente mais tarde!" });
+      next(error)
     }
 
   },
 
 
-  async listCourse(req, res) {
+  async listCourse(req, res, next) {
     const { id } = req.params;
 
     try {
@@ -24,13 +24,13 @@ module.exports = {
       return res.json(courses);
     }
     catch (error) {
-      return res.status(500).json({ message: "Erro interno buscar, tente mais tarde!!" });
+      next(error)
     }
 
   },
 
 
-  async findCourse(req, res) {
+  async findCourse(req, res, next) {
     const { q } = req.query;
 
     try {
@@ -43,17 +43,16 @@ module.exports = {
 
       return res.json({ message: 'Nenhum curso encontrado para sua busca' })
 
-
     }
     catch (error) {
-      return res.status(500).json({ message: "Erro interno, tente mais tarde!!!" });
+      next(error);
     }
 
   },
 
 
 
-  async store(req, res) {
+  async store(req, res, next) {
     const { title, subtitle, startedAt, description } = req.body;
 
     const courseExists = await Course.findOne({ title: title });
@@ -72,13 +71,13 @@ module.exports = {
       return res.json(crs);
     }
     catch (error) {
-      return res.status(500).json({ message: "Erro interno, tente mais tarde!" });
+      next(error);
     }
 
   },
 
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     const { id } = req.params;
 
     try {
@@ -94,13 +93,13 @@ module.exports = {
 
     }
     catch (error) {
-      return res.status(500).json({ message: "Erro interno ao tentar deletar curso, tente mais tarde!!" });
+      next(error);
     }
 
   },
 
 
-  async update(req, res) {
+  async update(req, res, next) {
     const { id } = req.params;
     const { title, subtitle, startedAt, description } = req.body;
 
@@ -117,13 +116,13 @@ module.exports = {
 
     }
     catch (error) {
-      return res.status(500).json({ message: "Erro interno ao tentar atualizar curso, tente mais tarde!!" });
+      next(error);
     }
 
   },
 
 
-  async modify(req, res) {
+  async modify(req, res, next) {
     const { id } = req.params;
 
     try {
@@ -139,7 +138,7 @@ module.exports = {
 
     }
     catch (error) {
-      return res.status(500).json({ message: "Erro interno ao tentar atualizar curso, tente mais tarde!!" });
+      next(error);
     }
 
   }
