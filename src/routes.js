@@ -13,6 +13,7 @@ routes.get('/courses/:id', Course.listCourse);
 routes.post('/courses', Course.store);
 routes.delete('/courses/:id', Course.delete);
 routes.put('/courses/:id', Course.update);
+routes.patch('/courses/:id', Course.modify);
 
 
 

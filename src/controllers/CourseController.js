@@ -108,7 +108,7 @@ module.exports = {
       const course = await Course.find({ _id: id });
 
       if (course.length > 0) {
-        const upCourse = await Course.findOneAndUpdate({ _id: id }, { title, subtitle, startedAt, description });
+        const upCourse = await Course.findOneAndUpdate({ _id: id }, { title, subtitle, startedAt, description }, { new: true });
 
         return res.status(200).json({ upCourse });
       }
@@ -120,6 +120,27 @@ module.exports = {
       return res.status(500).json({ message: "Erro interno ao tentar atualizar curso, tente mais tarde!!" });
     }
 
+  },
+
+
+  async modify(req, res) {
+    const { id } = req.params;
+
+    try {
+      const course = await Course.find({ _id: id });
+
+      if (course.length > 0) {
+        const upCourse = await Course.findOneAndUpdate({ _id: id }, req.body, { new: true });
+
+        return res.status(200).json({ upCourse });
+      }
+
+      return res.status(404).json({ message: 'Curso não encontrado, impossível atualizar' });
+
+    }
+    catch (error) {
+      return res.status(500).json({ message: "Erro interno ao tentar atualizar curso, tente mais tarde!!" });
+    }
 
   }
 

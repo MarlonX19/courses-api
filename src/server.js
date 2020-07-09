@@ -14,7 +14,8 @@ app.use(routes);
 
 mongoose.connect('mongodb+srv://startse:startse@cluster0-atavq.mongodb.net/startse?retryWrites=true&w=majority', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false,
 })
 
 
