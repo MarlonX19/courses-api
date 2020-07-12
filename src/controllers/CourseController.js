@@ -53,7 +53,7 @@ module.exports = {
 
 
   async store(req, res, next) {
-    const { title, subtitle, startedAt, description } = req.body;
+    const { title, subtitle, startedAt, description, isActive } = req.body;
 
     const courseExists = await Course.findOne({ title: title });
 
@@ -65,6 +65,7 @@ module.exports = {
       const crs = await Course.create({
         title,
         subtitle,
+        isActive,
         startedAt,
         description
       })
@@ -102,13 +103,13 @@ module.exports = {
 
   async update(req, res, next) {
     const { id } = req.params;
-    const { title, subtitle, startedAt, description } = req.body;
+    const { title, subtitle, startedAt, description, isActive } = req.body;
 
     try {
       const course = await Course.find({ _id: id });
 
       if (course.length > 0) {
-        const upCourse = await Course.findOneAndUpdate({ _id: id }, { title, subtitle, startedAt, description }, { new: true });
+        const upCourse = await Course.findOneAndUpdate({ _id: id }, { title, subtitle, startedAt, description, isActive }, { new: true });
 
         return res.status(200).json({ upCourse });
       }
