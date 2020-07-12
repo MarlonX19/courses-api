@@ -84,9 +84,10 @@ module.exports = {
       const course = await Course.find({ _id: id });
 
       if (course.length > 0) {
+        console.log('caiu aqui para apagar')
         const delCourse = await Course.deleteOne({ _id: id });
 
-        return res.status(204);
+        return res.status(200).json({ message: 'curso apagado'});
       }
 
       return res.status(404).json({ message: 'Curso não encontrado, impossível deletar' });
