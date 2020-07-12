@@ -17,7 +17,11 @@ const CourseSchema = new Schema({
 
   description: String,
 
-  isActive: Boolean, 
+  isActive: {
+    type: Boolean,
+    default: true,
+    required: true
+  },
 
 },
   {
