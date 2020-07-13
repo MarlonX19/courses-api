@@ -16,8 +16,6 @@ npm install || yarn
 
 ```
 
-```
-
 Once all the dependencies are installed, start the server at your localhost:3000:
 
 ```
